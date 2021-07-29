@@ -21,6 +21,8 @@ namespace Illusion
         public Process p = new Process();
         public string darkOrLight = "light";
         public string showNameonoff = "on";
+        
+        
         private void Form1_Load(object sender, EventArgs e)
         {
             Random rd = new Random();
@@ -29,8 +31,16 @@ namespace Illusion
                 lnkBox.Font = new System.Drawing.Font("Wingdings", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));//An easter egg:3
 
             }
-            DirectoryInfo TheFolder = new DirectoryInfo("C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs");
+            string userFolder = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+            DirectoryInfo TheFolderU = new DirectoryInfo(userFolder+"\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs");
             ArrayList lnkList = new ArrayList();
+            foreach (FileInfo NextFile in TheFolderU.GetFiles())
+                lnkList.Add(NextFile.Name);
+            foreach (DirectoryInfo NextFolder in TheFolderU.GetDirectories())
+                foreach (FileInfo NextFile in NextFolder.GetFiles())
+                    lnkList.Add(NextFolder.Name + "\\" + NextFile.Name);
+
+            DirectoryInfo TheFolder = new DirectoryInfo("C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs");
             foreach (FileInfo NextFile in TheFolder.GetFiles())
                 lnkList.Add(NextFile.Name);
             foreach (DirectoryInfo NextFolder in TheFolder.GetDirectories())

@@ -45,7 +45,7 @@ namespace Illusion
             this.lnkBox.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lnkBox.FormattingEnabled = true;
             this.lnkBox.ItemHeight = 17;
-            this.lnkBox.Location = new System.Drawing.Point(40, 25);
+            this.lnkBox.Location = new System.Drawing.Point(35, 26);
             this.lnkBox.Name = "lnkBox";
             this.lnkBox.Size = new System.Drawing.Size(321, 208);
             this.lnkBox.TabIndex = 0;
@@ -87,13 +87,14 @@ namespace Illusion
             // 
             // buttonChangeColor
             // 
+            this.buttonChangeColor.BackColor = System.Drawing.SystemColors.ControlLight;
             this.buttonChangeColor.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonChangeColor.Location = new System.Drawing.Point(523, 113);
             this.buttonChangeColor.Name = "buttonChangeColor";
             this.buttonChangeColor.Size = new System.Drawing.Size(63, 31);
             this.buttonChangeColor.TabIndex = 6;
             this.buttonChangeColor.Text = "更改";
-            this.buttonChangeColor.UseVisualStyleBackColor = true;
+            this.buttonChangeColor.UseVisualStyleBackColor = false;
             this.buttonChangeColor.Click += new System.EventHandler(this.buttonChangeColor_Click);
             // 
             // label1
@@ -124,6 +125,7 @@ namespace Illusion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(690, 282);
             this.Controls.Add(this.checkBox2);
             this.Controls.Add(this.label1);
@@ -133,7 +135,9 @@ namespace Illusion
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.lnkBox);
             this.ForeColor = System.Drawing.Color.Black;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "MainForm";
             this.Text = "Illusion v0.9";
             this.Load += new System.EventHandler(this.Form1_Load);
