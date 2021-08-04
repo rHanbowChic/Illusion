@@ -86,32 +86,41 @@ namespace Illusion
                     Icon exeIcon = Icon.ExtractAssociatedIcon(exePath);
                     Bitmap exeIconBmp = exeIcon.ToBitmap();
                     exeIconBmp.Save("exeicon.png", System.Drawing.Imaging.ImageFormat.Png);
-                    p.StandardInput.WriteLine(".\\Python38-32\\python .\\imagep.py " + colorNote.Text);
+                    string exeName = exePath.Substring(exePath.LastIndexOf("\\") + 1, exePath.Length - exePath.LastIndexOf("\\") - 1);
+                    p.StandardInput.WriteLine(".\\Python38-32\\python .\\imagep.py " + colorNote.Text+" "+exeName);
                     Thread.Sleep(600);//Wait for Python
                     XmlDocument vManifest = new XmlDocument();
                     vManifest.Load("Template.xml");
                     XmlElement xe = (XmlElement)vManifest.SelectSingleNode("Application/VisualElements");
                     xe.SetAttribute("ForegroundText", darkOrLight);
                     xe.SetAttribute("ShowNameOnSquare150x150Logo", showNameonoff);
+                    
+                    xe.SetAttribute("Square150x150Logo", exeName+".tile.png");
+                    xe.SetAttribute("Square70x70Logo", exeName + ".tileSmall.png");
+                    xe.SetAttribute("Square44x44Logo", exeName + ".tileSmall.png");
+
                     exePath = exePath.Substring(0, exePath.Length - 4);
                     vManifest.Save(exePath + ".VisualElementsManifest.xml");
                     exePath = exePath.Substring(0, exePath.LastIndexOf("\\") + 1);
-                    p.StandardInput.WriteLine("xcopy /Y tile.png \"" + exePath + "\"");
-                    p.StandardInput.WriteLine("xcopy /Y tileSmall.png \"" + exePath + "\"");
-                    /*p.StandardInput.WriteLine("xcopy /Y \"" + lnkPath + "\" .\\");
+                    p.StandardInput.WriteLine("xcopy /Y "+exeName+".tile.png \"" + exePath + "\"");
+                    p.StandardInput.WriteLine("xcopy /Y "+exeName+".tileSmall.png \"" + exePath + "\"");
+                    /*
+                    p.StandardInput.WriteLine("xcopy /Y \"" + lnkPath + "\" .\\");
                     p.StandardInput.WriteLine("del \"" + lnkPath + "\"");
                     Thread.Sleep(2000);//Wait for System
                     string lnkName = lnkPath.Substring(lnkPath.LastIndexOf("\\") + 1, lnkPath.Length - lnkPath.LastIndexOf("\\") - 1);
                     lnkPath = lnkPath.Substring(0, lnkPath.LastIndexOf("\\") + 1);
-                    p.StandardInput.WriteLine("xcopy /Y " + lnkName + " \"" + lnkPath + "\"");*/
+                    p.StandardInput.WriteLine("xcopy /Y " + lnkName + " \"" + lnkPath + "\"");
+                    */
 
                     p.StandardInput.WriteLine(".\\clean");
-
+                    MessageBox.Show("成功.如需立即显示效果,您可能需要重置快捷方式.");
+                    label1.Text = exeName;
 
                 }
                 catch
                 {
-                    MessageBox.Show("这个程序没有图标或无法提取.");
+                    MessageBox.Show("遇到奇怪的错误.");
                 }
             }
             else
@@ -150,6 +159,15 @@ namespace Illusion
             Color colorChoosed = colorDialog1.Color;
             colorNote.Text = colorChoosed.R.ToString() + " " + colorChoosed.G.ToString() + " " + colorChoosed.B.ToString();
             colorNote.BackColor = System.Drawing.Color.FromArgb(colorChoosed.R,colorChoosed.G,colorChoosed.B);
+            if (colorChoosed.R + colorChoosed.G + colorChoosed.B > 384)
+            {
+                colorNote.ForeColor = System.Drawing.Color.Black;
+            }
+            else
+            {
+                colorNote.ForeColor = System.Drawing.Color.White;
+            }
+            
         }
     }
 }

@@ -42,19 +42,19 @@ namespace Illusion
             // 
             // lnkBox
             // 
-            this.lnkBox.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lnkBox.Font = new System.Drawing.Font("Microsoft YaHei UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lnkBox.FormattingEnabled = true;
-            this.lnkBox.ItemHeight = 17;
-            this.lnkBox.Location = new System.Drawing.Point(35, 26);
+            this.lnkBox.ItemHeight = 20;
+            this.lnkBox.Location = new System.Drawing.Point(0, -3);
             this.lnkBox.Name = "lnkBox";
-            this.lnkBox.Size = new System.Drawing.Size(321, 208);
+            this.lnkBox.Size = new System.Drawing.Size(353, 284);
             this.lnkBox.TabIndex = 0;
             // 
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
             this.checkBox1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox1.Location = new System.Drawing.Point(390, 25);
+            this.checkBox1.Location = new System.Drawing.Point(522, 37);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(106, 23);
             this.checkBox1.TabIndex = 2;
@@ -65,9 +65,9 @@ namespace Illusion
             // OKButton
             // 
             this.OKButton.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.OKButton.Location = new System.Drawing.Point(390, 208);
+            this.OKButton.Location = new System.Drawing.Point(353, 242);
             this.OKButton.Name = "OKButton";
-            this.OKButton.Size = new System.Drawing.Size(233, 31);
+            this.OKButton.Size = new System.Drawing.Size(337, 39);
             this.OKButton.TabIndex = 3;
             this.OKButton.Text = "应用磁贴";
             this.OKButton.UseVisualStyleBackColor = true;
@@ -77,21 +77,20 @@ namespace Illusion
             // 
             this.colorNote.AutoSize = true;
             this.colorNote.BackColor = System.Drawing.Color.Black;
-            this.colorNote.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.colorNote.Font = new System.Drawing.Font("Source Sans Pro", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.colorNote.ForeColor = System.Drawing.Color.White;
-            this.colorNote.Location = new System.Drawing.Point(454, 123);
+            this.colorNote.Location = new System.Drawing.Point(410, 152);
             this.colorNote.Name = "colorNote";
-            this.colorNote.Size = new System.Drawing.Size(31, 12);
+            this.colorNote.Size = new System.Drawing.Size(45, 24);
             this.colorNote.TabIndex = 5;
             this.colorNote.Text = "0 0 0";
             // 
             // buttonChangeColor
             // 
-            this.buttonChangeColor.BackColor = System.Drawing.SystemColors.ControlLight;
             this.buttonChangeColor.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonChangeColor.Location = new System.Drawing.Point(523, 113);
+            this.buttonChangeColor.Location = new System.Drawing.Point(504, 138);
             this.buttonChangeColor.Name = "buttonChangeColor";
-            this.buttonChangeColor.Size = new System.Drawing.Size(63, 31);
+            this.buttonChangeColor.Size = new System.Drawing.Size(174, 38);
             this.buttonChangeColor.TabIndex = 6;
             this.buttonChangeColor.Text = "更改";
             this.buttonChangeColor.UseVisualStyleBackColor = false;
@@ -100,10 +99,10 @@ namespace Illusion
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(387, 118);
+            this.label1.Font = new System.Drawing.Font("Microsoft YaHei UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(370, 113);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(61, 19);
+            this.label1.Size = new System.Drawing.Size(65, 20);
             this.label1.TabIndex = 7;
             this.label1.Text = "磁贴颜色";
             // 
@@ -113,7 +112,7 @@ namespace Illusion
             this.checkBox2.Checked = true;
             this.checkBox2.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBox2.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox2.Location = new System.Drawing.Point(534, 26);
+            this.checkBox2.Location = new System.Drawing.Point(396, 37);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(80, 23);
             this.checkBox2.TabIndex = 8;
@@ -125,7 +124,6 @@ namespace Illusion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(690, 282);
             this.Controls.Add(this.checkBox2);
             this.Controls.Add(this.label1);
