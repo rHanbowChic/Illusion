@@ -38,11 +38,12 @@ namespace Illusion
             this.buttonChangeColor = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.buttonReset = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lnkBox
             // 
-            this.lnkBox.Font = new System.Drawing.Font("Microsoft YaHei UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lnkBox.Font = new System.Drawing.Font("Tempus Sans ITC", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lnkBox.FormattingEnabled = true;
             this.lnkBox.ItemHeight = 20;
             this.lnkBox.Location = new System.Drawing.Point(0, -3);
@@ -53,10 +54,12 @@ namespace Illusion
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox1.Checked = true;
+            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox1.Font = new System.Drawing.Font("幼圆", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.checkBox1.Location = new System.Drawing.Point(522, 37);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(106, 23);
+            this.checkBox1.Size = new System.Drawing.Size(123, 20);
             this.checkBox1.TabIndex = 2;
             this.checkBox1.Text = "使用深色字体";
             this.checkBox1.UseVisualStyleBackColor = true;
@@ -79,7 +82,7 @@ namespace Illusion
             this.colorNote.BackColor = System.Drawing.Color.Black;
             this.colorNote.Font = new System.Drawing.Font("Source Sans Pro", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.colorNote.ForeColor = System.Drawing.Color.White;
-            this.colorNote.Location = new System.Drawing.Point(410, 152);
+            this.colorNote.Location = new System.Drawing.Point(392, 144);
             this.colorNote.Name = "colorNote";
             this.colorNote.Size = new System.Drawing.Size(45, 24);
             this.colorNote.TabIndex = 5;
@@ -100,7 +103,7 @@ namespace Illusion
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft YaHei UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(370, 113);
+            this.label1.Location = new System.Drawing.Point(360, 102);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(65, 20);
             this.label1.TabIndex = 7;
@@ -109,22 +112,32 @@ namespace Illusion
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
-            this.checkBox2.Checked = true;
-            this.checkBox2.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox2.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox2.Font = new System.Drawing.Font("幼圆", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.checkBox2.Location = new System.Drawing.Point(396, 37);
             this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(80, 23);
+            this.checkBox2.Size = new System.Drawing.Size(91, 20);
             this.checkBox2.TabIndex = 8;
             this.checkBox2.Text = "显示字体";
             this.checkBox2.UseVisualStyleBackColor = true;
             this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
             // 
+            // buttonReset
+            // 
+            this.buttonReset.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.buttonReset.Location = new System.Drawing.Point(353, 206);
+            this.buttonReset.Name = "buttonReset";
+            this.buttonReset.Size = new System.Drawing.Size(337, 39);
+            this.buttonReset.TabIndex = 9;
+            this.buttonReset.Text = "重置磁贴(如果有)";
+            this.buttonReset.UseVisualStyleBackColor = true;
+            this.buttonReset.Click += new System.EventHandler(this.buttonReset_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(690, 282);
+            this.ClientSize = new System.Drawing.Size(690, 281);
+            this.Controls.Add(this.buttonReset);
             this.Controls.Add(this.checkBox2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonChangeColor);
@@ -133,11 +146,10 @@ namespace Illusion
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.lnkBox);
             this.ForeColor = System.Drawing.Color.Black;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "MainForm";
-            this.Text = "Illusion v0.9";
+            this.Text = "Illusion v1.0";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -154,6 +166,7 @@ namespace Illusion
         private System.Windows.Forms.Button buttonChangeColor;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.Button buttonReset;
     }
 }
 
