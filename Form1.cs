@@ -124,6 +124,9 @@ namespace Illusion
                     xe.SetAttribute("Square70x70Logo", exeName + ".tileSmall.png");
                     xe.SetAttribute("Square44x44Logo", exeName + ".tileSmall.png");
 
+                    Color colorChoosed = colorDialog1.Color;
+                    xe.SetAttribute("BackgroundColor", "#"+colorChoosed.R.ToString("x8").Substring(6)+colorChoosed.G.ToString("x8").Substring(6) + colorChoosed.B.ToString("x8").Substring(6));
+
                     exePath = exePath.Substring(0, exePath.Length - 4);
                     vManifest.Save(exePath + ".VisualElementsManifest.xml");
                     exePath = exePath.Substring(0, exePath.LastIndexOf("\\") + 1);

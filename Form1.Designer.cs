@@ -39,11 +39,12 @@ namespace Illusion
             this.label1 = new System.Windows.Forms.Label();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.buttonReset = new System.Windows.Forms.Button();
+            this.debug = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lnkBox
             // 
-            this.lnkBox.Font = new System.Drawing.Font("Tempus Sans ITC", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lnkBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lnkBox.FormattingEnabled = true;
             this.lnkBox.ItemHeight = 20;
             this.lnkBox.Location = new System.Drawing.Point(0, -3);
@@ -56,10 +57,10 @@ namespace Illusion
             this.checkBox1.AutoSize = true;
             this.checkBox1.Checked = true;
             this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Font = new System.Drawing.Font("幼圆", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.checkBox1.Location = new System.Drawing.Point(522, 37);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(123, 20);
+            this.checkBox1.Size = new System.Drawing.Size(124, 24);
             this.checkBox1.TabIndex = 2;
             this.checkBox1.Text = "使用深色字体";
             this.checkBox1.UseVisualStyleBackColor = true;
@@ -80,11 +81,11 @@ namespace Illusion
             // 
             this.colorNote.AutoSize = true;
             this.colorNote.BackColor = System.Drawing.Color.Black;
-            this.colorNote.Font = new System.Drawing.Font("Source Sans Pro", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.colorNote.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.colorNote.ForeColor = System.Drawing.Color.White;
             this.colorNote.Location = new System.Drawing.Point(392, 144);
             this.colorNote.Name = "colorNote";
-            this.colorNote.Size = new System.Drawing.Size(45, 24);
+            this.colorNote.Size = new System.Drawing.Size(50, 24);
             this.colorNote.TabIndex = 5;
             this.colorNote.Text = "0 0 0";
             // 
@@ -112,10 +113,10 @@ namespace Illusion
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
-            this.checkBox2.Font = new System.Drawing.Font("幼圆", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.checkBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.checkBox2.Location = new System.Drawing.Point(396, 37);
             this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(91, 20);
+            this.checkBox2.Size = new System.Drawing.Size(92, 24);
             this.checkBox2.TabIndex = 8;
             this.checkBox2.Text = "显示字体";
             this.checkBox2.UseVisualStyleBackColor = true;
@@ -132,11 +133,20 @@ namespace Illusion
             this.buttonReset.UseVisualStyleBackColor = true;
             this.buttonReset.Click += new System.EventHandler(this.buttonReset_Click);
             // 
+            // debug
+            // 
+            this.debug.AutoSize = true;
+            this.debug.Location = new System.Drawing.Point(488, 82);
+            this.debug.Name = "debug";
+            this.debug.Size = new System.Drawing.Size(0, 13);
+            this.debug.TabIndex = 10;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(690, 281);
+            this.Controls.Add(this.debug);
             this.Controls.Add(this.buttonReset);
             this.Controls.Add(this.checkBox2);
             this.Controls.Add(this.label1);
@@ -167,6 +177,7 @@ namespace Illusion
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.Button buttonReset;
+        private System.Windows.Forms.Label debug;
     }
 }
 
