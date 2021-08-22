@@ -39,7 +39,7 @@ namespace Illusion
             this.label1 = new System.Windows.Forms.Label();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.buttonReset = new System.Windows.Forms.Button();
-            this.debug = new System.Windows.Forms.Label();
+            this.HEXNote = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lnkBox
@@ -133,20 +133,22 @@ namespace Illusion
             this.buttonReset.UseVisualStyleBackColor = true;
             this.buttonReset.Click += new System.EventHandler(this.buttonReset_Click);
             // 
-            // debug
+            // HEXNote
             // 
-            this.debug.AutoSize = true;
-            this.debug.Location = new System.Drawing.Point(488, 82);
-            this.debug.Name = "debug";
-            this.debug.Size = new System.Drawing.Size(0, 13);
-            this.debug.TabIndex = 10;
+            this.HEXNote.AutoSize = true;
+            this.HEXNote.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.HEXNote.Location = new System.Drawing.Point(458, 104);
+            this.HEXNote.Name = "HEXNote";
+            this.HEXNote.Size = new System.Drawing.Size(64, 18);
+            this.HEXNote.TabIndex = 11;
+            this.HEXNote.Text = "#000000";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(690, 281);
-            this.Controls.Add(this.debug);
+            this.Controls.Add(this.HEXNote);
             this.Controls.Add(this.buttonReset);
             this.Controls.Add(this.checkBox2);
             this.Controls.Add(this.label1);
@@ -177,7 +179,7 @@ namespace Illusion
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.Button buttonReset;
-        private System.Windows.Forms.Label debug;
+        private System.Windows.Forms.Label HEXNote;
     }
 }
 

@@ -112,17 +112,17 @@ namespace Illusion
                     Bitmap exeIconBmp = exeIcon.ToBitmap();
                     exeIconBmp.Save("exeicon.png", System.Drawing.Imaging.ImageFormat.Png);
                     string exeName = exePath.Substring(exePath.LastIndexOf("\\") + 1, exePath.Length - exePath.LastIndexOf("\\") - 1);
-                    p.StandardInput.WriteLine(".\\Python38-32\\python .\\imagep.py " + colorNote.Text + " " + exeName);
-                    Thread.Sleep(600);//Wait for Python
+                    //p.StandardInput.WriteLine(".\\Python38-32\\python .\\imagep.py " + colorNote.Text + " " + exeName);
+                    //Thread.Sleep(600);//Wait for Python
                     XmlDocument vManifest = new XmlDocument();
                     vManifest.Load("Template.xml");
                     XmlElement xe = (XmlElement)vManifest.SelectSingleNode("Application/VisualElements");
                     xe.SetAttribute("ForegroundText", darkOrLight);
                     xe.SetAttribute("ShowNameOnSquare150x150Logo", showNameonoff);
 
-                    xe.SetAttribute("Square150x150Logo", exeName + ".tile.png");
-                    xe.SetAttribute("Square70x70Logo", exeName + ".tileSmall.png");
-                    xe.SetAttribute("Square44x44Logo", exeName + ".tileSmall.png");
+                    //xe.SetAttribute("Square150x150Logo", exeName + ".tile.png");
+                    //xe.SetAttribute("Square70x70Logo", exeName + ".tileSmall.png");
+                    //xe.SetAttribute("Square44x44Logo", exeName + ".tileSmall.png");
 
                     Color colorChoosed = colorDialog1.Color;
                     xe.SetAttribute("BackgroundColor", "#"+colorChoosed.R.ToString("x8").Substring(6)+colorChoosed.G.ToString("x8").Substring(6) + colorChoosed.B.ToString("x8").Substring(6));
@@ -195,7 +195,10 @@ namespace Illusion
             {
                 colorNote.ForeColor = System.Drawing.Color.White;
             }
-            
+
+            HEXNote.Text = "#" + colorChoosed.R.ToString("x8").Substring(6) + colorChoosed.G.ToString("x8").Substring(6) + colorChoosed.B.ToString("x8").Substring(6);
+
+
         }
 
         private void buttonReset_Click(object sender, EventArgs e)
@@ -214,16 +217,14 @@ namespace Illusion
             IWshRuntimeLibrary.IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(lnkPath);
             string exePath = shortcut.TargetPath;
             exePath = exePath.Substring(0, exePath.Length - 4);
-            p.StandardInput.WriteLine(".\\Python38-32\\python tileRes.py " + exePath);
-            label1.Text = ".\\Python38-32\\python tileRes.py " + exePath;
-
+            p.StandardInput.WriteLine("del \"" + exePath + ".VisualElementsManifest.xml\"");
+            p.StandardInput.WriteLine("xcopy /Y \"" + lnkPath + "\" .\\");
             p.StandardInput.WriteLine("del \"" + lnkPath + "\"");
             Thread.Sleep(2000);//Wait for System
             string lnkName = lnkPath.Substring(lnkPath.LastIndexOf("\\") + 1, lnkPath.Length - lnkPath.LastIndexOf("\\") - 1);
             lnkPath = lnkPath.Substring(0, lnkPath.LastIndexOf("\\") + 1);
             Thread.Sleep(200);
             p.StandardInput.WriteLine("xcopy /Y \"" + lnkName + "\" \"" + lnkPath + "\"");
-            label1.Text = "xcopy /Y \"" + lnkName + "\" \"" + lnkPath + "\"";
             buttonReset.Text = "重置磁贴(如果有)";
             buttonReset.Enabled = true;
             MessageBox.Show("成功.如需立即显示效果,您可能需要重置快捷方式.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);

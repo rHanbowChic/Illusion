@@ -146,7 +146,6 @@
     <Content Include="blankSmall.png" />
     <Content Include="imagep.py" />
     <Content Include="Template.xml" />
-    <Content Include="tileRes.py" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
