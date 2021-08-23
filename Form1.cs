@@ -112,17 +112,17 @@ namespace Illusion
                     Bitmap exeIconBmp = exeIcon.ToBitmap();
                     exeIconBmp.Save("exeicon.png", System.Drawing.Imaging.ImageFormat.Png);
                     string exeName = exePath.Substring(exePath.LastIndexOf("\\") + 1, exePath.Length - exePath.LastIndexOf("\\") - 1);
-                    //p.StandardInput.WriteLine(".\\Python38-32\\python .\\imagep.py " + colorNote.Text + " " + exeName);
-                    //Thread.Sleep(600);//Wait for Python
+                    p.StandardInput.WriteLine(".\\Python38-32\\python .\\imagep.py " + colorNote.Text + " " + exeName);
+                    Thread.Sleep(600);//Wait for Python
                     XmlDocument vManifest = new XmlDocument();
                     vManifest.Load("Template.xml");
                     XmlElement xe = (XmlElement)vManifest.SelectSingleNode("Application/VisualElements");
                     xe.SetAttribute("ForegroundText", darkOrLight);
                     xe.SetAttribute("ShowNameOnSquare150x150Logo", showNameonoff);
 
-                    //xe.SetAttribute("Square150x150Logo", exeName + ".tile.png");
-                    //xe.SetAttribute("Square70x70Logo", exeName + ".tileSmall.png");
-                    //xe.SetAttribute("Square44x44Logo", exeName + ".tileSmall.png");
+                    xe.SetAttribute("Square150x150Logo", exeName + ".tile.png");
+                    xe.SetAttribute("Square70x70Logo", exeName + ".tileSmall.png");
+                    xe.SetAttribute("Square44x44Logo", exeName + ".tileSmall.png");
 
                     Color colorChoosed = colorDialog1.Color;
                     xe.SetAttribute("BackgroundColor", "#"+colorChoosed.R.ToString("x8").Substring(6)+colorChoosed.G.ToString("x8").Substring(6) + colorChoosed.B.ToString("x8").Substring(6));
@@ -135,7 +135,7 @@ namespace Illusion
 
                     p.StandardInput.WriteLine("xcopy /Y \"" + lnkPath + "\" .\\");
                     p.StandardInput.WriteLine("del \"" + lnkPath + "\"");
-                    Thread.Sleep(2000);//Wait for System
+                    Thread.Sleep(5000);//Wait for System
                     string lnkName = lnkPath.Substring(lnkPath.LastIndexOf("\\") + 1, lnkPath.Length - lnkPath.LastIndexOf("\\") - 1);
                     lnkPath = lnkPath.Substring(0, lnkPath.LastIndexOf("\\") + 1);
                     Thread.Sleep(200);
@@ -143,7 +143,6 @@ namespace Illusion
 
                     p.StandardInput.WriteLine(".\\clean");
                     MessageBox.Show("成功.如需立即显示效果,您可能需要重置快捷方式.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    label1.Text = exeName;
                     OKButton.Text = "应用磁贴";
                     OKButton.Enabled = true;
 
@@ -190,10 +189,14 @@ namespace Illusion
             if (colorChoosed.R + colorChoosed.G + colorChoosed.B > 384)
             {
                 colorNote.ForeColor = System.Drawing.Color.Black;
+                checkBox1.Checked = true;
+                darkOrLight = "dark";
             }
             else
             {
                 colorNote.ForeColor = System.Drawing.Color.White;
+                checkBox1.Checked = false;
+                darkOrLight = "light";
             }
 
             HEXNote.Text = "#" + colorChoosed.R.ToString("x8").Substring(6) + colorChoosed.G.ToString("x8").Substring(6) + colorChoosed.B.ToString("x8").Substring(6);
@@ -220,7 +223,7 @@ namespace Illusion
             p.StandardInput.WriteLine("del \"" + exePath + ".VisualElementsManifest.xml\"");
             p.StandardInput.WriteLine("xcopy /Y \"" + lnkPath + "\" .\\");
             p.StandardInput.WriteLine("del \"" + lnkPath + "\"");
-            Thread.Sleep(2000);//Wait for System
+            Thread.Sleep(5000);//Wait for System
             string lnkName = lnkPath.Substring(lnkPath.LastIndexOf("\\") + 1, lnkPath.Length - lnkPath.LastIndexOf("\\") - 1);
             lnkPath = lnkPath.Substring(0, lnkPath.LastIndexOf("\\") + 1);
             Thread.Sleep(200);
@@ -228,6 +231,11 @@ namespace Illusion
             buttonReset.Text = "重置磁贴(如果有)";
             buttonReset.Enabled = true;
             MessageBox.Show("成功.如需立即显示效果,您可能需要重置快捷方式.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            hiddenLabel.Text = "这个界面马上就要做好了.";////////
         }
     }
 }
