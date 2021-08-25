@@ -21,17 +21,24 @@ namespace Illusion
         public Process p = new Process();
         public string darkOrLight = "light";
         public string showNameonoff = "on";
-        
-        
+
+
         private void Form1_Load(object sender, EventArgs e)
         {
+            if (!Directory.Exists(".\\Python38-32"))
+            {
+                MessageBox.Show("缺少必要文件\n请检查是否已解压", "Illusion 1.0", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Application.Exit();
+            }
+
+
             Random rd = new Random();
             if (rd.Next(1, 80) == 1)
             {
                 lnkBox.Font = new System.Drawing.Font("Wingdings", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));//An easter egg:3
 
             }
-            
+
             ArrayList lnkList = new ArrayList();
             DirectoryInfo TheFolder = new DirectoryInfo("C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs");
             foreach (FileInfo NextFile in TheFolder.GetFiles())
@@ -43,10 +50,10 @@ namespace Illusion
             string userFolder = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
             DirectoryInfo TheFolderU = new DirectoryInfo(userFolder + "\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs");
             foreach (FileInfo NextFile in TheFolderU.GetFiles())
-                lnkList.Add("User::"+NextFile.Name);
+                lnkList.Add("User::" + NextFile.Name);
             foreach (DirectoryInfo NextFolder in TheFolderU.GetDirectories())
                 foreach (FileInfo NextFile in NextFolder.GetFiles())
-                    lnkList.Add("User::"+NextFolder.Name + "\\" + NextFile.Name);
+                    lnkList.Add("User::" + NextFolder.Name + "\\" + NextFile.Name);
 
             for (int i = lnkList.Count - 1; i >= 0; i--)//.lnk files
             {
@@ -78,13 +85,13 @@ namespace Illusion
         private void button1_Click(object sender, EventArgs e)
         {
             string lnkPath = "";
-            if (lnkBox.SelectedItem.ToString().Contains("User::")) 
+            if (lnkBox.SelectedItem.ToString().Contains("User::"))
             {
                 string userFolder = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-                lnkPath = userFolder + "\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\" + lnkBox.SelectedItem.ToString().Substring(6, lnkBox.SelectedItem.ToString().Length - 6)+".lnk";
+                lnkPath = userFolder + "\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\" + lnkBox.SelectedItem.ToString().Substring(6, lnkBox.SelectedItem.ToString().Length - 6) + ".lnk";
             }
-            else {lnkPath = "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\" + lnkBox.SelectedItem + ".lnk"; }
-            
+            else { lnkPath = "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\" + lnkBox.SelectedItem + ".lnk"; }
+
             IWshRuntimeLibrary.WshShell shell = new IWshRuntimeLibrary.WshShellClass();
             IWshRuntimeLibrary.IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(lnkPath);
             string exePath = shortcut.TargetPath;
@@ -107,8 +114,15 @@ namespace Illusion
                 {
                     OKButton.Text = "Loading...";
                     OKButton.Enabled = false;
+                    Icon exeIcon;
+                    try { exeIcon = Icon.ExtractAssociatedIcon(exePath); }
+                    catch
+                    {
+                        exePath = exePath.Substring(0, 16) + exePath.Substring(22);
+                        exeIcon = Icon.ExtractAssociatedIcon(exePath);
+                    }
 
-                    Icon exeIcon = Icon.ExtractAssociatedIcon(exePath);
+
                     Bitmap exeIconBmp = exeIcon.ToBitmap();
                     exeIconBmp.Save("exeicon.png", System.Drawing.Imaging.ImageFormat.Png);
                     string exeName = exePath.Substring(exePath.LastIndexOf("\\") + 1, exePath.Length - exePath.LastIndexOf("\\") - 1);
@@ -125,7 +139,7 @@ namespace Illusion
                     xe.SetAttribute("Square44x44Logo", exeName + ".tileSmall.png");
 
                     Color colorChoosed = colorDialog1.Color;
-                    xe.SetAttribute("BackgroundColor", "#"+colorChoosed.R.ToString("x8").Substring(6)+colorChoosed.G.ToString("x8").Substring(6) + colorChoosed.B.ToString("x8").Substring(6));
+                    xe.SetAttribute("BackgroundColor", "#" + colorChoosed.R.ToString("x8").Substring(6) + colorChoosed.G.ToString("x8").Substring(6) + colorChoosed.B.ToString("x8").Substring(6));
 
                     exePath = exePath.Substring(0, exePath.Length - 4);
                     vManifest.Save(exePath + ".VisualElementsManifest.xml");
@@ -149,7 +163,7 @@ namespace Illusion
                 }
                 catch
                 {
-                    MessageBox.Show("遇到奇怪的错误.","",MessageBoxButtons.OK,MessageBoxIcon.Hand);
+                    MessageBox.Show("遇到奇怪的错误.", "", MessageBoxButtons.OK, MessageBoxIcon.Hand);
                     OKButton.Text = "应用磁贴";
                     OKButton.Enabled = true;
                 }
@@ -185,7 +199,7 @@ namespace Illusion
             colorDialog1.ShowDialog();
             Color colorChoosed = colorDialog1.Color;
             colorNote.Text = colorChoosed.R.ToString() + " " + colorChoosed.G.ToString() + " " + colorChoosed.B.ToString();
-            colorNote.BackColor = System.Drawing.Color.FromArgb(colorChoosed.R,colorChoosed.G,colorChoosed.B);
+            colorNote.BackColor = System.Drawing.Color.FromArgb(colorChoosed.R, colorChoosed.G, colorChoosed.B);
             if (colorChoosed.R + colorChoosed.G + colorChoosed.B > 384)
             {
                 colorNote.ForeColor = System.Drawing.Color.Black;
@@ -228,6 +242,7 @@ namespace Illusion
             lnkPath = lnkPath.Substring(0, lnkPath.LastIndexOf("\\") + 1);
             Thread.Sleep(200);
             p.StandardInput.WriteLine("xcopy /Y \"" + lnkName + "\" \"" + lnkPath + "\"");
+            p.StandardInput.WriteLine(".\\clean");
             buttonReset.Text = "重置磁贴(如果有)";
             buttonReset.Enabled = true;
             MessageBox.Show("成功.如需立即显示效果,您可能需要重置快捷方式.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
