@@ -63,10 +63,58 @@ namespace Illusion.Properties {
         /// <summary>
         ///   查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Icon Illusion {
+        internal static System.Drawing.Icon illusion_logo_128 {
             get {
-                object obj = ResourceManager.GetObject("Illusion", resourceCulture);
+                object obj = ResourceManager.GetObject("illusion_logo_128", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap illusion_poplogo {
+            get {
+                object obj = ResourceManager.GetObject("illusion-poplogo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap illusion_poplogo_4x4 {
+            get {
+                object obj = ResourceManager.GetObject("illusion_poplogo_4x4", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap illusion_purpledot_4x4 {
+            get {
+                object obj = ResourceManager.GetObject("illusion_purpledot_4x4", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 &lt;Application xmlns:xsi=&apos;http://www.w3.org/2001/XMLSchema-instance&apos;&gt;
+        ///  &lt;VisualElements
+        ///      ShowNameOnSquare150x150Logo=&apos;on&apos;
+        ///      Square150x150Logo=&apos;tile.png&apos;
+        ///      Square70x70Logo=&apos;tileSmall.png&apos;
+        ///      Square44x44Logo=&apos;tileSmall.png&apos;
+        ///      ForegroundText=&apos;light&apos;
+        ///      BackgroundColor=&apos;#0078d7&apos;/&gt;
+        ///&lt;/Application&gt;
+        /// 的本地化字符串。
+        /// </summary>
+        internal static string Template_xml {
+            get {
+                return ResourceManager.GetString("Template.xml", resourceCulture);
             }
         }
     }

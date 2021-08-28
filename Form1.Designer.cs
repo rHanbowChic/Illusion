@@ -39,10 +39,10 @@ namespace Illusion
             this.label1 = new System.Windows.Forms.Label();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.buttonReset = new System.Windows.Forms.Button();
-            this.HEXNote = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hiddenLabel = new System.Windows.Forms.Label();
+            this.HEXNote = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -59,10 +59,10 @@ namespace Illusion
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.checkBox1.Font = new System.Drawing.Font("Microsoft YaHei UI Light", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBox1.Location = new System.Drawing.Point(522, 37);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(124, 24);
+            this.checkBox1.Size = new System.Drawing.Size(125, 25);
             this.checkBox1.TabIndex = 2;
             this.checkBox1.Text = "使用深色字体";
             this.checkBox1.UseVisualStyleBackColor = true;
@@ -70,10 +70,10 @@ namespace Illusion
             // 
             // OKButton
             // 
-            this.OKButton.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.OKButton.Location = new System.Drawing.Point(533, 284);
+            this.OKButton.Font = new System.Drawing.Font("Microsoft YaHei UI Light", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.OKButton.Location = new System.Drawing.Point(533, 282);
             this.OKButton.Name = "OKButton";
-            this.OKButton.Size = new System.Drawing.Size(208, 29);
+            this.OKButton.Size = new System.Drawing.Size(208, 31);
             this.OKButton.TabIndex = 3;
             this.OKButton.Text = "应用磁贴";
             this.OKButton.UseVisualStyleBackColor = true;
@@ -83,20 +83,20 @@ namespace Illusion
             // 
             this.colorNote.AutoSize = true;
             this.colorNote.BackColor = System.Drawing.Color.Black;
-            this.colorNote.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.colorNote.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.colorNote.ForeColor = System.Drawing.Color.White;
-            this.colorNote.Location = new System.Drawing.Point(384, 144);
+            this.colorNote.Location = new System.Drawing.Point(384, 148);
             this.colorNote.Name = "colorNote";
-            this.colorNote.Size = new System.Drawing.Size(50, 24);
+            this.colorNote.Size = new System.Drawing.Size(60, 22);
             this.colorNote.TabIndex = 5;
             this.colorNote.Text = "0 0 0";
             // 
             // buttonChangeColor
             // 
-            this.buttonChangeColor.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonChangeColor.Location = new System.Drawing.Point(472, 143);
+            this.buttonChangeColor.Font = new System.Drawing.Font("Microsoft YaHei UI Light", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonChangeColor.Location = new System.Drawing.Point(500, 144);
             this.buttonChangeColor.Name = "buttonChangeColor";
-            this.buttonChangeColor.Size = new System.Drawing.Size(174, 29);
+            this.buttonChangeColor.Size = new System.Drawing.Size(174, 31);
             this.buttonChangeColor.TabIndex = 6;
             this.buttonChangeColor.Text = "更改";
             this.buttonChangeColor.UseVisualStyleBackColor = false;
@@ -105,10 +105,10 @@ namespace Illusion
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft YaHei UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Microsoft YaHei UI Light", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(377, 102);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(65, 20);
+            this.label1.Size = new System.Drawing.Size(74, 21);
             this.label1.TabIndex = 7;
             this.label1.Text = "磁贴颜色";
             // 
@@ -117,10 +117,10 @@ namespace Illusion
             this.checkBox2.AutoSize = true;
             this.checkBox2.Checked = true;
             this.checkBox2.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.checkBox2.Font = new System.Drawing.Font("Microsoft YaHei UI Light", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBox2.Location = new System.Drawing.Point(396, 37);
             this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(92, 24);
+            this.checkBox2.Size = new System.Drawing.Size(93, 25);
             this.checkBox2.TabIndex = 8;
             this.checkBox2.Text = "显示字体";
             this.checkBox2.UseVisualStyleBackColor = true;
@@ -128,24 +128,14 @@ namespace Illusion
             // 
             // buttonReset
             // 
-            this.buttonReset.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.buttonReset.Location = new System.Drawing.Point(388, 284);
+            this.buttonReset.Font = new System.Drawing.Font("Microsoft YaHei UI Light", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.buttonReset.Location = new System.Drawing.Point(388, 282);
             this.buttonReset.Name = "buttonReset";
-            this.buttonReset.Size = new System.Drawing.Size(128, 29);
+            this.buttonReset.Size = new System.Drawing.Size(128, 31);
             this.buttonReset.TabIndex = 9;
-            this.buttonReset.Text = "重置磁贴(如果有)";
+            this.buttonReset.Text = "重置此项";
             this.buttonReset.UseVisualStyleBackColor = true;
             this.buttonReset.Click += new System.EventHandler(this.buttonReset_Click);
-            // 
-            // HEXNote
-            // 
-            this.HEXNote.AutoSize = true;
-            this.HEXNote.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.HEXNote.Location = new System.Drawing.Point(469, 104);
-            this.HEXNote.Name = "HEXNote";
-            this.HEXNote.Size = new System.Drawing.Size(64, 18);
-            this.HEXNote.TabIndex = 11;
-            this.HEXNote.Text = "#000000";
             // 
             // menuStrip1
             // 
@@ -173,13 +163,23 @@ namespace Illusion
             this.hiddenLabel.Size = new System.Drawing.Size(0, 13);
             this.hiddenLabel.TabIndex = 13;
             // 
+            // HEXNote
+            // 
+            this.HEXNote.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.HEXNote.Font = new System.Drawing.Font("Microsoft YaHei UI Light", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.HEXNote.Location = new System.Drawing.Point(500, 101);
+            this.HEXNote.Name = "HEXNote";
+            this.HEXNote.Size = new System.Drawing.Size(82, 27);
+            this.HEXNote.TabIndex = 14;
+            this.HEXNote.Text = "#";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(765, 340);
-            this.Controls.Add(this.hiddenLabel);
             this.Controls.Add(this.HEXNote);
+            this.Controls.Add(this.hiddenLabel);
             this.Controls.Add(this.buttonReset);
             this.Controls.Add(this.checkBox2);
             this.Controls.Add(this.label1);
@@ -190,11 +190,12 @@ namespace Illusion
             this.Controls.Add(this.lnkBox);
             this.Controls.Add(this.menuStrip1);
             this.ForeColor = System.Drawing.Color.Black;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.Name = "MainForm";
-            this.Text = "Illusion v1.0";
+            this.Text = "Illusion v1.1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -214,10 +215,10 @@ namespace Illusion
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.Button buttonReset;
-        private System.Windows.Forms.Label HEXNote;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.Label hiddenLabel;
+        private System.Windows.Forms.TextBox HEXNote;
     }
 }
 

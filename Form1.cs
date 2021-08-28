@@ -1,5 +1,4 @@
-﻿using IWshRuntimeLibrary;
-using System;
+﻿using System;
 using System.Collections;
 using System.Diagnostics;
 using System.Drawing;
@@ -8,6 +7,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
 using System.Xml;
+using File = System.IO.File;
 
 namespace Illusion
 {
@@ -36,7 +36,7 @@ namespace Illusion
             if (rd.Next(1, 80) == 1)
             {
                 lnkBox.Font = new System.Drawing.Font("Wingdings", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));//An easter egg:3
-
+                hiddenLabel.Text = "ooooooooooooooooooo!";
             }
 
             ArrayList lnkList = new ArrayList();
@@ -78,6 +78,7 @@ namespace Illusion
             p.StartInfo.RedirectStandardError = true;
             p.StartInfo.CreateNoWindow = true;
             p.Start();//Start a cmd.exe profile for Python
+            p.StandardInput.WriteLine(".\\clean");//Abnormal exit
 
 
         }
@@ -91,10 +92,13 @@ namespace Illusion
                 lnkPath = userFolder + "\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\" + lnkBox.SelectedItem.ToString().Substring(6, lnkBox.SelectedItem.ToString().Length - 6) + ".lnk";
             }
             else { lnkPath = "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\" + lnkBox.SelectedItem + ".lnk"; }
+            Shell32.Shell sh = new Shell32.Shell();
+            Shell32.Folder fold = sh.NameSpace(Path.GetDirectoryName(lnkPath));
+            Shell32.FolderItem itm = fold.Items().Item(Path.GetFileName(lnkPath));
+            Shell32.ShellLinkObject linkObj = (Shell32.ShellLinkObject)itm.GetLink;
 
-            IWshRuntimeLibrary.WshShell shell = new IWshRuntimeLibrary.WshShellClass();
-            IWshRuntimeLibrary.IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(lnkPath);
-            string exePath = shortcut.TargetPath;
+
+            string exePath = linkObj.Path;
 
             bool OKToExecute = false;
             if (!(exePath.Contains("C:\\Windows") || exePath.Contains("C:\\windows")))
@@ -110,63 +114,70 @@ namespace Illusion
             }
             if (OKToExecute)
             {
-                try
+                //try
+                //{
+                OKButton.Text = "Loading...";
+                OKButton.Enabled = false;
+                Icon exeIcon;
+                if (!File.Exists(exePath))
                 {
-                    OKButton.Text = "Loading...";
-                    OKButton.Enabled = false;
-                    Icon exeIcon;
-                    try { exeIcon = Icon.ExtractAssociatedIcon(exePath); }
-                    catch
-                    {
-                        exePath = exePath.Substring(0, 16) + exePath.Substring(22);
-                        exeIcon = Icon.ExtractAssociatedIcon(exePath);
-                    }
-
-
-                    Bitmap exeIconBmp = exeIcon.ToBitmap();
-                    exeIconBmp.Save("exeicon.png", System.Drawing.Imaging.ImageFormat.Png);
-                    string exeName = exePath.Substring(exePath.LastIndexOf("\\") + 1, exePath.Length - exePath.LastIndexOf("\\") - 1);
-                    p.StandardInput.WriteLine(".\\Python38-32\\python .\\imagep.py " + colorNote.Text + " " + exeName);
-                    Thread.Sleep(600);//Wait for Python
-                    XmlDocument vManifest = new XmlDocument();
-                    vManifest.Load("Template.xml");
-                    XmlElement xe = (XmlElement)vManifest.SelectSingleNode("Application/VisualElements");
-                    xe.SetAttribute("ForegroundText", darkOrLight);
-                    xe.SetAttribute("ShowNameOnSquare150x150Logo", showNameonoff);
-
-                    xe.SetAttribute("Square150x150Logo", exeName + ".tile.png");
-                    xe.SetAttribute("Square70x70Logo", exeName + ".tileSmall.png");
-                    xe.SetAttribute("Square44x44Logo", exeName + ".tileSmall.png");
-
-                    Color colorChoosed = colorDialog1.Color;
-                    xe.SetAttribute("BackgroundColor", "#" + colorChoosed.R.ToString("x8").Substring(6) + colorChoosed.G.ToString("x8").Substring(6) + colorChoosed.B.ToString("x8").Substring(6));
-
-                    exePath = exePath.Substring(0, exePath.Length - 4);
-                    vManifest.Save(exePath + ".VisualElementsManifest.xml");
-                    exePath = exePath.Substring(0, exePath.LastIndexOf("\\") + 1);
-                    p.StandardInput.WriteLine("xcopy /Y " + exeName + ".tile.png \"" + exePath + "\"");
-                    p.StandardInput.WriteLine("xcopy /Y " + exeName + ".tileSmall.png \"" + exePath + "\"");
-
-                    p.StandardInput.WriteLine("xcopy /Y \"" + lnkPath + "\" .\\");
-                    p.StandardInput.WriteLine("del \"" + lnkPath + "\"");
-                    Thread.Sleep(5000);//Wait for System
-                    string lnkName = lnkPath.Substring(lnkPath.LastIndexOf("\\") + 1, lnkPath.Length - lnkPath.LastIndexOf("\\") - 1);
-                    lnkPath = lnkPath.Substring(0, lnkPath.LastIndexOf("\\") + 1);
-                    Thread.Sleep(200);
-                    p.StandardInput.WriteLine("xcopy /Y \"" + lnkName + "\" \"" + lnkPath + "\"");
-
-                    p.StandardInput.WriteLine(".\\clean");
-                    MessageBox.Show("成功.如需立即显示效果,您可能需要重置快捷方式.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    OKButton.Text = "应用磁贴";
-                    OKButton.Enabled = true;
-
+                    exePath = exePath.Substring(0, 16) + exePath.Substring(22);
                 }
-                catch
+                exeIcon = Icon.ExtractAssociatedIcon(exePath);
+
+
+                Bitmap exeIconBmp = exeIcon.ToBitmap();
+                exeIconBmp.Save("exeicon.png", System.Drawing.Imaging.ImageFormat.Png);
+                string exeName = exePath.Substring(exePath.LastIndexOf("\\") + 1, exePath.Length - exePath.LastIndexOf("\\") - 1);
+                p.StandardInput.WriteLine(".\\Python38-32\\python .\\imagep.py " + colorNote.Text + " " + exeName);
+                Thread.Sleep(600);//Wait for Python
+                XmlDocument vManifest = new XmlDocument();
+                vManifest.Load("Template.xml");
+                XmlElement xe = (XmlElement)vManifest.SelectSingleNode("Application/VisualElements");
+                xe.SetAttribute("ForegroundText", darkOrLight);
+                xe.SetAttribute("ShowNameOnSquare150x150Logo", showNameonoff);
+
+                xe.SetAttribute("Square150x150Logo", exeName + ".tile.png");
+                xe.SetAttribute("Square70x70Logo", exeName + ".tileSmall.png");
+                xe.SetAttribute("Square44x44Logo", exeName + ".tileSmall.png");
+
+                Color colorChoosed = colorDialog1.Color;
+                xe.SetAttribute("BackgroundColor", "#" + colorChoosed.R.ToString("x8").Substring(6) + colorChoosed.G.ToString("x8").Substring(6) + colorChoosed.B.ToString("x8").Substring(6));
+
+                exePath = exePath.Substring(0, exePath.Length - 4);
+                vManifest.Save(exePath + ".VisualElementsManifest.xml");
+                exePath = exePath.Substring(0, exePath.LastIndexOf("\\") + 1);
+                if (File.Exists(exePath + exeName + ".tile.png"))
                 {
-                    MessageBox.Show("遇到奇怪的错误.", "", MessageBoxButtons.OK, MessageBoxIcon.Hand);
-                    OKButton.Text = "应用磁贴";
-                    OKButton.Enabled = true;
+                    File.Delete(exePath + exeName + ".tile.png");
                 }
+                if (File.Exists(exePath + exeName + ".tileSmall.png"))
+                {
+                    File.Delete(exePath + exeName + ".tileSmall.png");
+                }
+                File.Copy(exeName + ".tile.png", exePath + exeName + ".tile.png");
+                File.Copy(exeName + ".tileSmall.png", exePath + exeName + ".tileSmall.png");
+                string lnkName = lnkPath.Substring(lnkPath.LastIndexOf("\\") + 1, lnkPath.Length - lnkPath.LastIndexOf("\\") - 1);
+                File.Copy(lnkPath, ".\\" + lnkName);
+                File.Delete(lnkPath);
+                Thread.Sleep(5000);//Wait for System
+
+
+                Thread.Sleep(200);
+                File.Copy(lnkName, lnkPath);
+
+                p.StandardInput.WriteLine(".\\clean");
+                MessageBox.Show("成功.如需立即显示效果,您可能需要重置快捷方式.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                OKButton.Text = "应用磁贴";
+                OKButton.Enabled = true;
+
+                //}
+                //catch
+                //{
+                //   MessageBox.Show("遇到奇怪的错误.", "", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                //   OKButton.Text = "应用磁贴";
+                //   OKButton.Enabled = true;
+                //}
             }
         }
 
@@ -220,6 +231,7 @@ namespace Illusion
 
         private void buttonReset_Click(object sender, EventArgs e)
         {
+
             buttonReset.Text = "Loading...";
             buttonReset.Enabled = false;
             string lnkPath = "";
@@ -230,27 +242,35 @@ namespace Illusion
             }
             else { lnkPath = "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\" + lnkBox.SelectedItem + ".lnk"; }
 
-            IWshRuntimeLibrary.WshShell shell = new IWshRuntimeLibrary.WshShellClass();
-            IWshRuntimeLibrary.IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(lnkPath);
-            string exePath = shortcut.TargetPath;
+            Shell32.Shell sh = new Shell32.Shell();
+            Shell32.Folder fold = sh.NameSpace(Path.GetDirectoryName(lnkPath));
+            Shell32.FolderItem itm = fold.Items().Item(Path.GetFileName(lnkPath));
+            Shell32.ShellLinkObject linkObj = (Shell32.ShellLinkObject)itm.GetLink;
+            string exePath = linkObj.Path;
             exePath = exePath.Substring(0, exePath.Length - 4);
-            p.StandardInput.WriteLine("del \"" + exePath + ".VisualElementsManifest.xml\"");
-            p.StandardInput.WriteLine("xcopy /Y \"" + lnkPath + "\" .\\");
-            p.StandardInput.WriteLine("del \"" + lnkPath + "\"");
-            Thread.Sleep(5000);//Wait for System
+            if (!File.Exists(exePath + ".exe"))
+            {
+                exePath = exePath.Substring(0, 16) + exePath.Substring(22);
+            }
+            if (File.Exists(exePath + ".VisualElementsManifest.xml")) { File.Delete(exePath + ".VisualElementsManifest.xml"); }
             string lnkName = lnkPath.Substring(lnkPath.LastIndexOf("\\") + 1, lnkPath.Length - lnkPath.LastIndexOf("\\") - 1);
-            lnkPath = lnkPath.Substring(0, lnkPath.LastIndexOf("\\") + 1);
+            File.Copy(lnkPath, ".\\" + lnkName);
+            File.Delete(lnkPath);
+            Thread.Sleep(3000);//Wait for System
+
+
             Thread.Sleep(200);
-            p.StandardInput.WriteLine("xcopy /Y \"" + lnkName + "\" \"" + lnkPath + "\"");
+            File.Copy(lnkName, lnkPath);
             p.StandardInput.WriteLine(".\\clean");
-            buttonReset.Text = "重置磁贴(如果有)";
+            buttonReset.Text = "重置此项";
             buttonReset.Enabled = true;
             MessageBox.Show("成功.如需立即显示效果,您可能需要重置快捷方式.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            hiddenLabel.Text = "这个界面马上就要做好了.";////////
+            Form prAbout = new About();
+            prAbout.ShowDialog();
         }
     }
 }
