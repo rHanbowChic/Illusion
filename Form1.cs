@@ -36,7 +36,7 @@ namespace Illusion
             if (rd.Next(1, 80) == 1)
             {
                 lnkBox.Font = new System.Drawing.Font("Wingdings", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));//An easter egg:3
-                hiddenLabel.Text = "ooooooooooooooooooo!";
+                hiddenLabel.Text = "Do you like Wingdings? It must be the best font of Windows!Emmm...";
             }
 
             ArrayList lnkList = new ArrayList();
@@ -78,7 +78,7 @@ namespace Illusion
             p.StartInfo.RedirectStandardError = true;
             p.StartInfo.CreateNoWindow = true;
             p.Start();//Start a cmd.exe profile for Python
-            p.StandardInput.WriteLine(".\\clean");//Abnormal exit
+            p.StandardInput.WriteLine(".\\clear");//Abnormal exit
 
 
         }
@@ -166,7 +166,7 @@ namespace Illusion
                 Thread.Sleep(200);
                 File.Copy(lnkName, lnkPath);
 
-                p.StandardInput.WriteLine(".\\clean");
+                p.StandardInput.WriteLine(".\\clear");
                 MessageBox.Show("成功.如需立即显示效果,您可能需要重置快捷方式.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 OKButton.Text = "应用磁贴";
                 OKButton.Enabled = true;
@@ -261,7 +261,7 @@ namespace Illusion
 
             Thread.Sleep(200);
             File.Copy(lnkName, lnkPath);
-            p.StandardInput.WriteLine(".\\clean");
+            p.StandardInput.WriteLine(".\\clear");
             buttonReset.Text = "重置此项";
             buttonReset.Enabled = true;
             MessageBox.Show("成功.如需立即显示效果,您可能需要重置快捷方式.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -272,5 +272,29 @@ namespace Illusion
             Form prAbout = new About();
             prAbout.ShowDialog();
         }
+
+        private void buttonApplyColor_Click(object sender, EventArgs e)
+        {
+            string fixedHexNote;
+            try
+            {
+                if (HEXNote.Text.Substring(0, 1) == "#")
+                {
+                    fixedHexNote = HEXNote.Text.Substring(1, 6);
+                }
+                else
+                {
+                    fixedHexNote = HEXNote.Text;
+                }
+                int intHexValueR = Convert.ToInt32("0x" + fixedHexNote.Substring(0, 2), 16);
+                int intHexValueG = Convert.ToInt32("0x" + fixedHexNote.Substring(2, 2), 16);
+                int intHexValueB = Convert.ToInt32("0x" + fixedHexNote.Substring(4, 2), 16);
+                colorNote.Text = intHexValueR.ToString() + " " + intHexValueG.ToString() + " " + intHexValueB.ToString();
+                colorNote.BackColor = Color.FromArgb(intHexValueR, intHexValueG, intHexValueB);
+            }
+            catch { }
+        }
+
+        
     }
 }

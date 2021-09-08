@@ -68,7 +68,7 @@ namespace Illusion
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "About";
-            this.Text = "about illusion";
+            this.Text = "about Illusion";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
