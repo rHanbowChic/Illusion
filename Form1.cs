@@ -33,10 +33,11 @@ namespace Illusion
 
 
             Random rd = new Random();
-            if (rd.Next(1, 80) == 1)
+            if ((rd.Next(1, 80) == 1))
             {
                 lnkBox.Font = new System.Drawing.Font("Wingdings", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));//An easter egg:3
-                hiddenLabel.Text = "Do you like Wingdings? It must be the best font of Windows!Emmm...";
+                if (rd.Next(0, 1) == 1) { hiddenLabel.Text = "Surprise!"; } else {
+                    hiddenLabel.Text = "Do you like Wingdings? It must be the best font of Windows!Emmm..."; }
             }
 
             ArrayList lnkList = new ArrayList();
@@ -157,17 +158,11 @@ namespace Illusion
                 }
                 File.Copy(exeName + ".tile.png", exePath + exeName + ".tile.png");
                 File.Copy(exeName + ".tileSmall.png", exePath + exeName + ".tileSmall.png");
-                string lnkName = lnkPath.Substring(lnkPath.LastIndexOf("\\") + 1, lnkPath.Length - lnkPath.LastIndexOf("\\") - 1);
-                File.Copy(lnkPath, ".\\" + lnkName);
-                File.Delete(lnkPath);
-                Thread.Sleep(5000);//Wait for System
-
-
-                Thread.Sleep(200);
-                File.Copy(lnkName, lnkPath);
+                PubMethods pms = new PubMethods();
+                pms.resLnk(lnkPath);
 
                 p.StandardInput.WriteLine(".\\clear");
-                MessageBox.Show("成功.如需立即显示效果,您可能需要重置快捷方式.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("已成功设置磁贴.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 OKButton.Text = "应用磁贴";
                 OKButton.Enabled = true;
 
@@ -179,7 +174,11 @@ namespace Illusion
                 //   OKButton.Enabled = true;
                 //}
             }
+
+            
         }
+
+        
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
@@ -253,18 +252,12 @@ namespace Illusion
                 exePath = exePath.Substring(0, 16) + exePath.Substring(22);
             }
             if (File.Exists(exePath + ".VisualElementsManifest.xml")) { File.Delete(exePath + ".VisualElementsManifest.xml"); }
-            string lnkName = lnkPath.Substring(lnkPath.LastIndexOf("\\") + 1, lnkPath.Length - lnkPath.LastIndexOf("\\") - 1);
-            File.Copy(lnkPath, ".\\" + lnkName);
-            File.Delete(lnkPath);
-            Thread.Sleep(3000);//Wait for System
-
-
-            Thread.Sleep(200);
-            File.Copy(lnkName, lnkPath);
+            PubMethods pms = new PubMethods();
+            pms.resLnk(lnkPath);
             p.StandardInput.WriteLine(".\\clear");
             buttonReset.Text = "重置此项";
             buttonReset.Enabled = true;
-            MessageBox.Show("成功.如需立即显示效果,您可能需要重置快捷方式.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("已成功设置磁贴.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -291,10 +284,99 @@ namespace Illusion
                 int intHexValueB = Convert.ToInt32("0x" + fixedHexNote.Substring(4, 2), 16);
                 colorNote.Text = intHexValueR.ToString() + " " + intHexValueG.ToString() + " " + intHexValueB.ToString();
                 colorNote.BackColor = Color.FromArgb(intHexValueR, intHexValueG, intHexValueB);
+                if (intHexValueB+intHexValueG+intHexValueR > 384)
+                {
+                    colorNote.ForeColor = System.Drawing.Color.Black;
+                    checkBox1.Checked = true;
+                    darkOrLight = "dark";
+                }
+                else
+                {
+                    colorNote.ForeColor = System.Drawing.Color.White;
+                    checkBox1.Checked = false;
+                    darkOrLight = "light";
+                }
             }
             catch { }
         }
 
-        
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            OKButton2.Text = "Loading...";
+            OKButton2.Enabled = false;
+            string lnkPath = "";
+            if (lnkBox.SelectedItem.ToString().Contains("User::"))
+            {
+                string userFolder = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+                lnkPath = userFolder + "\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\" + lnkBox.SelectedItem.ToString().Substring(6, lnkBox.SelectedItem.ToString().Length - 6) + ".lnk";
+            }
+            else { lnkPath = "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\" + lnkBox.SelectedItem + ".lnk"; }
+
+            Shell32.Shell sh = new Shell32.Shell();
+            Shell32.Folder fold = sh.NameSpace(Path.GetDirectoryName(lnkPath));
+            Shell32.FolderItem itm = fold.Items().Item(Path.GetFileName(lnkPath));
+            Shell32.ShellLinkObject linkObj = (Shell32.ShellLinkObject)itm.GetLink;
+            string exePath = linkObj.Path;
+            exePath = exePath.Substring(0, exePath.Length - 4);
+            if (!File.Exists(exePath + ".exe"))
+            {
+                exePath = exePath.Substring(0, 16) + exePath.Substring(22);
+            }
+
+            string exeName = exePath.Substring(exePath.LastIndexOf("\\") + 1, exePath.Length - exePath.LastIndexOf("\\") - 1);
+            XmlDocument vManifest = new XmlDocument();
+            vManifest.Load("Template.xml");
+            XmlElement xe = (XmlElement)vManifest.SelectSingleNode("Application/VisualElements");
+            xe.SetAttribute("ForegroundText", darkOrLight);
+            xe.SetAttribute("ShowNameOnSquare150x150Logo", showNameonoff);
+
+            xe.SetAttribute("Square150x150Logo", exeName + ".exe.tile.png");
+            xe.SetAttribute("Square70x70Logo", exeName + ".exe.tileSmall.png");
+            xe.SetAttribute("Square44x44Logo", exeName + ".exe.tileSmall.png");
+
+            Color colorChoosed = colorDialog1.Color;
+            xe.SetAttribute("BackgroundColor", "#" + colorChoosed.R.ToString("x8").Substring(6) + colorChoosed.G.ToString("x8").Substring(6) + colorChoosed.B.ToString("x8").Substring(6));
+
+            vManifest.Save(exePath + ".VisualElementsManifest.xml");
+            exePath = exePath.Substring(0, exePath.LastIndexOf("\\") + 1);
+            if (File.Exists(exePath + exeName + ".exe.tile.png"))
+            {
+                File.Delete(exePath + exeName + ".exe.tile.png");
+            }
+            if (File.Exists(exePath + exeName + ".exe.tileSmall.png"))
+            {
+                File.Delete(exePath + exeName + ".exe.tileSmall.png");
+            }
+            try
+            {
+                File.Copy(textBoxPicPath.Text, exePath + exeName + ".exe.tile.png");
+                File.Copy(textBoxPicPath.Text, exePath + exeName + ".exe.tileSmall.png");
+                
+                PubMethods pms = new PubMethods();
+                pms.resLnk(lnkPath);
+                
+                p.StandardInput.WriteLine(".\\clear");
+                MessageBox.Show("已成功设置磁贴.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch 
+            {
+                MessageBox.Show("不是标准路径.", "", MessageBoxButtons.OK);
+            }
+            
+            OKButton2.Text = "应用";
+            OKButton2.Enabled = true;
+        }
+
+        private void openFileDialog1_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            textBoxPicPath.Text = openFileDialog1.FileName;
+        }
+
+        private void button1_Click_2(object sender, EventArgs e)
+        {
+            openFileDialog1.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Pictures";
+            openFileDialog1.Filter = "PNG文件|*.png|所有文件|*.*";
+            openFileDialog1.ShowDialog();
+        }
     }
 }
