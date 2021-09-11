@@ -54,7 +54,7 @@ namespace Illusion
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(454, 20);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Illusion  ver1.2.0_20210828                                thx visual studio.";
+            this.label1.Text = "Illusion  ver1.3.0_20210911                                thx visual studio.";
             // 
             // About
             // 
