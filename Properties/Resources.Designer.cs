@@ -101,6 +101,16 @@ namespace Illusion.Properties {
         }
         
         /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap illusuon_textlogo {
+            get {
+                object obj = ResourceManager.GetObject("illusuon_textlogo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 &lt;Application xmlns:xsi=&apos;http://www.w3.org/2001/XMLSchema-instance&apos;&gt;
         ///  &lt;VisualElements
         ///      ShowNameOnSquare150x150Logo=&apos;on&apos;

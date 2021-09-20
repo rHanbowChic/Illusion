@@ -164,6 +164,7 @@
     <None Include="Resources\illusion-logo-128.ico" />
     <None Include="Resources\Template.xml" />
     <None Include="Resources\illusion-purpledot-4x4.png" />
+    <None Include="Resources\illusuon_textlogo.png" />
     <Content Include="Template.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

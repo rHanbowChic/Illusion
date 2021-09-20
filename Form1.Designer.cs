@@ -52,10 +52,12 @@ namespace Illusion
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxPicPath = new System.Windows.Forms.TextBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.hiddenPictureBox = new System.Windows.Forms.PictureBox();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.hiddenPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // lnkBox
@@ -154,7 +156,7 @@ namespace Illusion
             this.aboutToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(808, 25);
+            this.menuStrip1.Size = new System.Drawing.Size(811, 25);
             this.menuStrip1.TabIndex = 12;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -297,12 +299,24 @@ namespace Illusion
             // 
             this.openFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
             // 
+            // hiddenPictureBox
+            // 
+            this.hiddenPictureBox.Image = global::Illusion.Properties.Resources.illusuon_textlogo;
+            this.hiddenPictureBox.Location = new System.Drawing.Point(847, 152);
+            this.hiddenPictureBox.Name = "hiddenPictureBox";
+            this.hiddenPictureBox.Size = new System.Drawing.Size(417, 109);
+            this.hiddenPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.hiddenPictureBox.TabIndex = 18;
+            this.hiddenPictureBox.TabStop = false;
+            // 
             // MainForm
             // 
+            this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(27)))), ((int)(((byte)(34)))));
-            this.ClientSize = new System.Drawing.Size(808, 418);
+            this.ClientSize = new System.Drawing.Size(811, 418);
+            this.Controls.Add(this.hiddenPictureBox);
             this.Controls.Add(this.lnkBox);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.menuStrip1);
@@ -312,8 +326,10 @@ namespace Illusion
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.Name = "MainForm";
-            this.Text = "Illusion v1.2";
+            this.Text = "Illusion";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.MainForm_DragDrop);
+            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.MainForm_DragEnter);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
@@ -321,6 +337,7 @@ namespace Illusion
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.hiddenPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -350,6 +367,7 @@ namespace Illusion
         private System.Windows.Forms.TextBox textBoxPicPath;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.PictureBox hiddenPictureBox;
     }
 }
 

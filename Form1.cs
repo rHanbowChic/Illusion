@@ -67,10 +67,23 @@ namespace Illusion
             {
                 lnkList[i] = lnkList[i].ToString().Substring(0, lnkList[i].ToString().Length - 4);
             }
+            string[] bannedApps = File.ReadAllLines(@".\denylist.txt");
+            for (int lnkListItem= lnkList.Count - 1; lnkListItem >= 0; lnkListItem--)
+            {
+                for (int bannedAppsItem = 0; bannedAppsItem < bannedApps.Length; bannedAppsItem++)
+                {
+                    if (lnkList[lnkListItem].ToString().Contains(bannedApps[bannedAppsItem]))
+                    {
+                        lnkList.RemoveAt(lnkListItem);
+                    }
+                }
+            }
+
             for (int i = 0; i < lnkList.Count; i++)//To lnkBox
             {
                 this.lnkBox.Items.Add(lnkList[i]);
             }
+            
             lnkBox.SelectedIndex = 0;
             p.StartInfo.FileName = "cmd.exe";
             p.StartInfo.UseShellExecute = false;
@@ -252,6 +265,8 @@ namespace Illusion
                 exePath = exePath.Substring(0, 16) + exePath.Substring(22);
             }
             if (File.Exists(exePath + ".VisualElementsManifest.xml")) { File.Delete(exePath + ".VisualElementsManifest.xml"); }
+            if (File.Exists(exePath + ".exe.tile.png")) { File.Delete(exePath + ".exe.tile.png"); }
+            if (File.Exists(exePath + ".exe.tileSmall.png")) { File.Delete(exePath + ".exe.tileSmall.png"); }
             PubMethods pms = new PubMethods();
             pms.resLnk(lnkPath);
             p.StandardInput.WriteLine(".\\clear");
@@ -377,6 +392,19 @@ namespace Illusion
             openFileDialog1.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Pictures";
             openFileDialog1.Filter = "PNG文件|*.png|所有文件|*.*";
             openFileDialog1.ShowDialog();
+        }
+
+        private void MainForm_DragDrop(object sender, DragEventArgs e)
+        {
+            string drgdPath = ((System.Array)e.Data.GetData(DataFormats.FileDrop)).GetValue(0).ToString();
+            textBoxPicPath.Text = drgdPath;
+        }
+
+        private void MainForm_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            { e.Effect = DragDropEffects.All; }
+            else { e.Effect = DragDropEffects.None; }
         }
     }
 }

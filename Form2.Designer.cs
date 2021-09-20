@@ -50,11 +50,11 @@ namespace Illusion
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft YaHei UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(89, 224);
+            this.label1.Location = new System.Drawing.Point(103, 216);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(454, 20);
+            this.label1.Size = new System.Drawing.Size(452, 20);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Illusion  ver1.3.0_20210911                                thx visual studio.";
+            this.label1.Text = "Illusion  ver1.4.0  Mafurako                                thx visual studio.";
             // 
             // About
             // 
