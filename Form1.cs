@@ -36,7 +36,7 @@ namespace Illusion
             if ((rd.Next(1, 80) == 1))
             {
                 lnkBox.Font = new System.Drawing.Font("Wingdings", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));//An easter egg:3
-                if (rd.Next(0, 1) == 1) { hiddenLabel.Text = "Surprise!"; } else {
+                if (rd.Next(0, 2) == 1) { hiddenLabel.Text = "Surprise!"; } else {
                     hiddenLabel.Text = "Do you like Wingdings? It must be the best font of Windows!Emmm..."; }
             }
 
@@ -75,6 +75,7 @@ namespace Illusion
                     if (lnkList[lnkListItem].ToString().Contains(bannedApps[bannedAppsItem]))
                     {
                         lnkList.RemoveAt(lnkListItem);
+                        break;
                     }
                 }
             }
