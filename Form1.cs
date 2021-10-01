@@ -25,9 +25,14 @@ namespace Illusion
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            Version verInf = System.Environment.OSVersion.Version;
+            if (!(verInf.Major == 6 && (verInf.Minor == 3 || verInf.Minor == 2)) && !(verInf.Major == 10))
+            {
+                MessageBox.Show("不支持的系统版本。仅支持Windows 8,Windows 8.1与Windows 10。", "Illusion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
             if (!Directory.Exists(".\\Python38-32"))
             {
-                MessageBox.Show("缺少必要文件\n请检查是否已解压", "Illusion 1.0", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("缺少必要文件\n请检查是否已解压", "Illusion", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Application.Exit();
             }
 
