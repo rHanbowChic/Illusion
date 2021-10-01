@@ -21,7 +21,7 @@ namespace Illusion
         public Process p = new Process();
         public string darkOrLight = "light";
         public string showNameonoff = "on";
-
+        public bool isWindows8 = false;
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -29,6 +29,10 @@ namespace Illusion
             if (!(verInf.Major == 6 && (verInf.Minor == 3 || verInf.Minor == 2)) && !(verInf.Major == 10))
             {
                 MessageBox.Show("不支持的系统版本。仅支持Windows 8,Windows 8.1与Windows 10。", "Illusion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            if (verInf.Major == 6 && (verInf.Minor == 3 || verInf.Minor == 2))
+            {
+                isWindows8 = true;
             }
             if (!Directory.Exists(".\\Python38-32"))
             {
@@ -156,10 +160,12 @@ namespace Illusion
                 XmlElement xe = (XmlElement)vManifest.SelectSingleNode("Application/VisualElements");
                 xe.SetAttribute("ForegroundText", darkOrLight);
                 xe.SetAttribute("ShowNameOnSquare150x150Logo", showNameonoff);
-
-                xe.SetAttribute("Square150x150Logo", exeName + ".tile.png");
-                xe.SetAttribute("Square70x70Logo", exeName + ".tileSmall.png");
-                xe.SetAttribute("Square44x44Logo", exeName + ".tileSmall.png");
+                if (!isWindows8)
+                {
+                    xe.SetAttribute("Square150x150Logo", exeName + ".tile.png");
+                    xe.SetAttribute("Square70x70Logo", exeName + ".tileSmall.png");
+                    xe.SetAttribute("Square44x44Logo", exeName + ".tileSmall.png");
+                }
 
                 Color colorChoosed = colorDialog1.Color;
                 xe.SetAttribute("BackgroundColor", "#" + colorChoosed.R.ToString("x8").Substring(6) + colorChoosed.G.ToString("x8").Substring(6) + colorChoosed.B.ToString("x8").Substring(6));
@@ -175,8 +181,11 @@ namespace Illusion
                 {
                     File.Delete(exePath + exeName + ".tileSmall.png");
                 }
-                File.Copy(exeName + ".tile.png", exePath + exeName + ".tile.png");
-                File.Copy(exeName + ".tileSmall.png", exePath + exeName + ".tileSmall.png");
+                if (!isWindows8)
+                {
+                    File.Copy(exeName + ".tile.png", exePath + exeName + ".tile.png");
+                    File.Copy(exeName + ".tileSmall.png", exePath + exeName + ".tileSmall.png");
+                }
                 PubMethods pms = new PubMethods();
                 pms.resLnk(lnkPath);
 
@@ -300,11 +309,14 @@ namespace Illusion
                 {
                     fixedHexNote = HEXNote.Text;
                 }
+                
+                
                 int intHexValueR = Convert.ToInt32("0x" + fixedHexNote.Substring(0, 2), 16);
                 int intHexValueG = Convert.ToInt32("0x" + fixedHexNote.Substring(2, 2), 16);
                 int intHexValueB = Convert.ToInt32("0x" + fixedHexNote.Substring(4, 2), 16);
                 colorNote.Text = intHexValueR.ToString() + " " + intHexValueG.ToString() + " " + intHexValueB.ToString();
                 colorNote.BackColor = Color.FromArgb(intHexValueR, intHexValueG, intHexValueB);
+                colorDialog1.Color = Color.FromArgb(intHexValueR, intHexValueG, intHexValueB);
                 if (intHexValueB+intHexValueG+intHexValueR > 384)
                 {
                     colorNote.ForeColor = System.Drawing.Color.Black;
@@ -411,6 +423,11 @@ namespace Illusion
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             { e.Effect = DragDropEffects.All; }
             else { e.Effect = DragDropEffects.None; }
+        }
+
+        private void HEXNote_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

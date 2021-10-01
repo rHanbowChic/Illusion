@@ -189,6 +189,7 @@ namespace Illusion
             this.HEXNote.Size = new System.Drawing.Size(82, 27);
             this.HEXNote.TabIndex = 14;
             this.HEXNote.Text = "#";
+            this.HEXNote.TextChanged += new System.EventHandler(this.HEXNote_TextChanged);
             // 
             // buttonApplyColor
             // 
